@@ -1,18 +1,13 @@
-// vendor
-import React from 'react';
 import styled from 'styled-components';
 
-// locals
-import logo from '../assets/img/logo.png';
-
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 60px;
 `;
 
-const Form = styled.form`
+export const Form = styled.form`
   margin-top: 20px;
   width: 100%;
   max-width: 400px;
@@ -45,19 +40,3 @@ const Form = styled.form`
     }
   }
 `;
-
-// app
-const Main = () => (
-  <Container>
-    <img src={logo} alt="Github Compare" />
-
-    <Form>
-      <input type="text" placeholder="Usuário/repositório" />
-      <button type="submit">
-        OK
-      </button>
-    </Form>
-  </Container>
-);
-
-export default Main;

@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 
 // locals
 import GlobalStyle from './styles/global';
-import Main from './pages/Main';
+import Main from './pages/main';
 
 const App = () => (
   <Fragment>

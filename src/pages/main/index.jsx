@@ -1,26 +1,70 @@
 // vendor
-import React from 'react';
+import React, { Component } from 'react';
 
 // locals
 import CompareList from '../../components/compare-list';
+import api from '../../services/api';
 
 import logo from '../../assets/img/logo.png';
 import { Container, Form } from './styles';
 
 // app
-const Main = () => (
-  <Container>
-    <img src={logo} alt="Github Compare" />
+export default class Main extends Component {
+  state = {
+    repositoryInput: '',
+    repositories: [],
+  }
 
-    <Form>
-      <input type="text" placeholder="Usuário/repositório" />
-      <button type="submit">
-        OK
-      </button>
-    </Form>
+  set repositoryInput(repositoryInput) {
+    this.setState({ repositoryInput });
+  }
 
-    <CompareList />
-  </Container>
-);
+  get repositoryInput() {
+    return this.state.repositoryInput;
+  }
 
-export default Main;
+  set repositories(repository) {
+    const { repositories } = this;
+    repositories.push(repository);
+    this.setState({ repositories });
+  }
+
+  get repositories() {
+    return this.state.repositories;
+  }
+
+  handleAddRepository = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await api.get(`repos/${this.repositoryInput}`);
+      this.repositories = response.data;
+      this.repositoryInput = '';
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  render() {
+    const { repositories } = this.state;
+
+    return (
+      <Container>
+        <img src={logo} alt="Github Compare" />
+
+        <Form onSubmit={this.handleAddRepository}>
+          <input
+            type="text"
+            placeholder="Usuário/repositório"
+            onChange={e => this.repositoryInput = e.target.value}
+          />
+          <button type="submit">
+          OK
+          </button>
+        </Form>
+
+        <CompareList repositories={repositories} />
+      </Container>
+    );
+  }
+}

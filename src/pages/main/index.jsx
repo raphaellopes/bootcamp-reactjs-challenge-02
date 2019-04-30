@@ -1,5 +1,6 @@
 // vendor
 import React, { Component } from 'react';
+import moment from 'moment';
 
 // locals
 import CompareList from '../../components/compare-list';
@@ -37,8 +38,11 @@ export default class Main extends Component {
     e.preventDefault();
 
     try {
-      const response = await api.get(`repos/${this.repositoryInput}`);
-      this.repositories = response.data;
+      const { data: repository } = await api.get(`repos/${this.repositoryInput}`);
+
+      repository.lastCommit = moment(repository.pushed_at).fromNow();
+
+      this.repositories = repository;
       this.repositoryInput = '';
     } catch (err) {
       console.error(err);

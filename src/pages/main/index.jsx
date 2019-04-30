@@ -2,8 +2,9 @@
 import React from 'react';
 
 // locals
-import logo from '../../assets/img/logo.png';
+import CompareList from '../../components/compare-list';
 
+import logo from '../../assets/img/logo.png';
 import { Container, Form } from './styles';
 
 // app
@@ -17,6 +18,8 @@ const Main = () => (
         OK
       </button>
     </Form>
+
+    <CompareList />
   </Container>
 );
 

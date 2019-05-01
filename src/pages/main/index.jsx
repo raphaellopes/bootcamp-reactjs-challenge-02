@@ -12,6 +12,7 @@ import { Container, Form } from './styles';
 // app
 export default class Main extends Component {
   state = {
+    repositoryError: false,
     repositoryInput: '',
     repositories: [],
   }
@@ -21,17 +22,28 @@ export default class Main extends Component {
   }
 
   get repositoryInput() {
-    return this.state.repositoryInput;
+    const { repositoryInput } = this.state;
+    return repositoryInput;
   }
 
   set repositories(repository) {
-    const { repositories } = this;
+    const { repositories } = this.state;
     repositories.push(repository);
     this.setState({ repositories });
   }
 
   get repositories() {
-    return this.state.repositories;
+    const { repositories } = this.state;
+    return repositories;
+  }
+
+  set repositoryError(repositoryError) {
+    this.setState({ repositoryError });
+  }
+
+  get repositoryError() {
+    const { repositoryError } = this.state;
+    return repositoryError;
   }
 
   handleAddRepository = async (e) => {
@@ -44,8 +56,9 @@ export default class Main extends Component {
 
       this.repositories = repository;
       this.repositoryInput = '';
+      this.repositoryError = false;
     } catch (err) {
-      console.error(err);
+      this.repositoryError = true;
     }
   }
 
@@ -56,7 +69,10 @@ export default class Main extends Component {
       <Container>
         <img src={logo} alt="Github Compare" />
 
-        <Form onSubmit={this.handleAddRepository}>
+        <Form
+          onSubmit={this.handleAddRepository}
+          withError={this.repositoryError}
+        >
           <input
             type="text"
             placeholder="Usuário/repositório"

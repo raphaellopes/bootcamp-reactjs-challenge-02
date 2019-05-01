@@ -4,6 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
   margin-top: 50px;
 `;
 
@@ -14,7 +15,7 @@ export const Repository = styled.div`
 
   display: flex;
   flex-direction: column;
-  margin: 0 10px;
+  margin: 0 10px 10px;
 
   header {
     padding: 30px;
@@ -55,6 +56,14 @@ export const Repository = styled.div`
       &:nth-child(2n-1) {
         background: #f5f5f5;
       }
+    }
+  }
+
+  .actions {
+    display: flex;
+
+    button {
+      flex: 1;
     }
   }
 `;

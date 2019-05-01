@@ -1,11 +1,14 @@
 import React from 'react';
 import {
-  arrayOf, shape, string, number,
+  arrayOf, shape, string, number, func,
 } from 'prop-types';
 
+import Button from '../button';
 import { Container, Repository } from './styles';
 
-const CompareList = ({ repositories }) => (
+const CompareList = ({
+  repositories, onDeleteClick, onUpdateClick,
+}) => (
   <Container>
     {repositories.map(repository => (
       <Repository key={repository.id}>
@@ -32,6 +35,23 @@ const CompareList = ({ repositories }) => (
             {repository.lastCommit} <small>last commit</small>
           </li>
         </ul>
+
+        <div className="actions">
+          <Button
+            type="button"
+            onClick={() => onUpdateClick(repository.id)}
+          >
+            Atualizar
+          </Button>
+
+          <Button
+            className="error"
+            type="button"
+            onClick={() => onDeleteClick(repository.id)}
+          >
+              Remover
+          </Button>
+        </div>
       </Repository>
     ))}
   </Container>
@@ -50,6 +70,8 @@ CompareList.propTypes = {
     open_issues_count: number.isRequired,
     pushed_at: string.isRequired,
   })).isRequired,
+  onDeleteClick: func.isRequired,
+  onUpdateClick: func.isRequired,
 };
 
 export default CompareList;

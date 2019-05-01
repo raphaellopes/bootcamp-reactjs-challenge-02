@@ -25,20 +25,12 @@ export const Form = styled.form`
   }
 
   button {
-    border: 0;
-    height: 55px;
-    padding: 0 20px;
     margin-left: 10px;
-    background: #63f5b8;
-    border-radius: 3px;
-    color: #fff;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
     width: 80px;
-
-    &:hover {
-      background: #52d89f;
-    }
   }
+`;
+
+export const WrapSpin = styled.div`
+  color: #fff;
+  padding-top: 40px;
 `;

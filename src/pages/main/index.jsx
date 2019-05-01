@@ -12,6 +12,7 @@ import { Container, Form } from './styles';
 // app
 export default class Main extends Component {
   state = {
+    loading: false,
     repositoryError: false,
     repositoryInput: '',
     repositories: [],
@@ -46,8 +47,19 @@ export default class Main extends Component {
     return repositoryError;
   }
 
+  get loading() {
+    const { loading } = this.state;
+    return loading;
+  }
+
+  set loading(loading) {
+    this.setState({ loading });
+  }
+
   handleAddRepository = async (e) => {
     e.preventDefault();
+
+    this.loading = true;
 
     try {
       const { data: repository } = await api.get(`repos/${this.repositoryInput}`);
@@ -59,11 +71,15 @@ export default class Main extends Component {
       this.repositoryError = false;
     } catch (err) {
       this.repositoryError = true;
+    } finally {
+      this.loading = false;
     }
   }
 
   render() {
     const { repositories } = this.state;
+
+    const spinner = <i className="fa fa-spinner fa-pulse" />;
 
     return (
       <Container>
@@ -79,7 +95,7 @@ export default class Main extends Component {
             onChange={e => this.repositoryInput = e.target.value}
           />
           <button type="submit">
-          OK
+            {this.loading ? spinner : 'OK'}
           </button>
         </Form>
 

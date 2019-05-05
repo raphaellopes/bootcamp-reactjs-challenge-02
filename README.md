@@ -11,3 +11,11 @@ Nesse desafio, foi desenvolvido a tela acima explorando:
 - Remoção e atualização dos dados armazenados no `localStorage`;
 
 
+## Rodar o projeto local
+
+```
+git clone https://github.com/raphaellopes/bootcamp-reactjs-challenge-02.git
+cd bootcamp-reactjs-challenge-02/
+
+yarn && yarn start
+```
